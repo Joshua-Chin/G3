@@ -33,14 +33,14 @@ g3.api = function(){
 		throw "Please pass a valid point, recieved Array:"+p;
 	    }
 	    if(p2===undefined){p2=0};
-	    return [+p0,+p1,+p2];
+	    return [+p0,+p1,+p2, 1];
 	}
 	var x=p.x,y=p.y,z=p.z;
 	if(x===undefined||y===undefined){
 		throw "Please pass a valid point, recieved Object:"+p;
 	}
 	if(z===undefined){z=0;}
-	return [+x,+y,+z];
+	return [+x,+y,+z, 1];
     }
 
     return {

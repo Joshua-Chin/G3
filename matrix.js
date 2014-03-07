@@ -92,7 +92,21 @@
 		out[i] = sum;
 	    }
 	    return out;
- 	};
+ 	}
+
+	function mulVectors(M, vs){
+	    var out = [];
+	    for(var k=0; k<vs.length; k+=4){
+		for(var i=0; i<4; i++){
+		    var sum = 0;
+		    for(var j=0; j<4; j++){
+			sum += M[4*i+j] * v[k+j];
+		    }
+		    out[k+i] = sum;
+		}
+	    }
+	    return out;
+	}
 
 	return {
 	    mul:mul,
@@ -103,7 +117,8 @@
 	    rotateZ:rotateZ,
 	    mulMatrices:mulMatrices,
 	    mulMatrix:mulMatrix,
-	    mulVector:mulVector
+	    mulVector:mulVector,
+	    mulVectors:mulVectors
 	};
 
     }();
