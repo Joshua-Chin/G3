@@ -13,6 +13,7 @@ g3.renderer = function(canvas){
     function render(){	
 	imageData.data.set(b8);
 	context.putImageData(imageData,0,0);
+	clear();
     }
 
     var black = g3.api.color("black");
@@ -75,7 +76,7 @@ g3.renderer = function(canvas){
     }
 
     function drawWireframe(wireframe, color){
-	_drawWireFrame(wireframe.points, wireframe.indices, g3.api.color(color));
+	_drawWireFrame(g3.matrix.mulVectors(wireframe.transformMatrix(), wireframe.points), wireframe.indices, g3.api.color(color));
     }
 
     function _drawWireFrame(points, indices, color){
@@ -85,22 +86,11 @@ g3.renderer = function(canvas){
 	}
     }
 
-    function flatten(arr){
-	var out = [];
-	for(var i = 0; i < arr.length; i++) {
-	    for(var j=0; j < arr[i].length; j++){
-		out.push(arr[i][j]);
-	    }
-	}
-	return out;
-    }
-
     return {
 	drawLine:drawLine,
 	drawPoint:drawPoint,
 	drawWireframe:drawWireframe,
 	render:render,
-	clear:clear
     };
 
 }
