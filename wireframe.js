@@ -45,7 +45,6 @@ g3.wireframe = function(points, indices){
 		points:points,
 		indices:indices,
 		heading:[0,0,0],
-	facing:[0,0,0],
 		rotate:undefined,
 		scale:[1,1,1],
 		scaled:scaled,
