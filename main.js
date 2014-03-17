@@ -10,6 +10,7 @@ window.onload = function() {
 		cube.rotate(.01,.02,.03);
 		cube.move(0.1,0,0);
 		r.drawWireframe(cube, "red");
+		r.drawBezierCurve(0,0,100,100,50,200,300,10,"blue");
 		r.render();
 		requestAnimationFrame(main);
 	}

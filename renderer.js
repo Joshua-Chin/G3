@@ -94,10 +94,32 @@ g3.renderer = function(canvas) {
 		}
 	}
 
+	function drawBezierCurve(x0, y0, x1, y1, x2, y2, x3, y3, color) {
+		var fx = x0;
+		var fy = y0;
+		for (var t = 0.01; t < 1; t += 0.005) {
+			var p = bezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t);
+			_drawLine(fx, fy, p[0], p[1], color);
+			fx = p[0];
+			fy = p[1];
+		}
+	}
+
+	function bezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t) {
+		var a = Math.pow(1 - t, 3);
+		var b = 3 * t * Math.pow(1 - t, 2);
+		var c = 3 * t * t * (1 - t);
+		var d = t * t * t;
+		var x = a * x0 + b * x1 + c * x2 + d * x3;
+		var y = a * y0 + b * y1 + c * y2 + d * y3;
+		return [x, y];
+	}
+
 	return {
 		drawLine : drawLine,
 		drawPoint : drawPoint,
 		drawWireframe : drawWireframe,
+		drawBezierCurve : drawBezierCurve,
 		render : render,
 	};
 
