@@ -11,6 +11,8 @@ window.onload = function() {
 		cube.move(0.1,0,0);
 		r.drawWireframe(cube, "red");
 		r.drawBezierCurve(0,0,100,100,50,200,300,10,"blue");
+		r.drawHermiteCurve(300,300,350,0,0,250,400,400,"white");
+		r.drawCircle(100,100,77,"green");
 		r.render();
 		requestAnimationFrame(main);
 	}

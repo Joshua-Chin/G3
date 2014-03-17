@@ -94,6 +94,39 @@ g3.renderer = function(canvas) {
 		}
 	}
 
+	function drawCircle(x, y, r, c) {
+		var fx = x + r;
+		var fy = y;
+		for (var t = 0.01; t < 2 * Math.PI; t += 0.01) {
+			var ny = y + r * Math.sin(t);
+			var nx = x + r * Math.cos(t);
+			_drawLine(fx, fy, nx, ny, c);
+			fx = nx;
+			fy = ny;
+		}
+	}
+
+	function drawHermiteCurve(x0, y0, x1, y1, x2, y2, x3, y3, color) {
+		var fx = x0;
+		var fy = y0;
+		for (var t = 0.01; t < 1; t += 0.005) {
+			var p = hermitePoint(x0, y0, x1, y1, x2, y2, x3, y3, t);
+			_drawLine(fx, fy, p[0], p[1], color);
+			fx = p[0];
+			fy = p[1];
+		}
+	}
+
+	function hermitePoint(x0, y0, x1, y1, x2, y2, x3, y3, t) {
+		var a = (1 + 2 * t) * Math.pow(1 - t, 2);
+		var b = t * Math.pow(1 - t, 2);
+		var c = t * t * (3 - 2 * t);
+		var d = t * t * (1 - t);
+		var x = a * x0 + b * x1 + c * x2 + d * x3;
+		var y = a * y0 + b * y1 + c * y2 + d * y3;
+		return [x, y];
+	}
+
 	function drawBezierCurve(x0, y0, x1, y1, x2, y2, x3, y3, color) {
 		var fx = x0;
 		var fy = y0;
@@ -120,6 +153,8 @@ g3.renderer = function(canvas) {
 		drawPoint : drawPoint,
 		drawWireframe : drawWireframe,
 		drawBezierCurve : drawBezierCurve,
+		drawHermiteCurve : drawHermiteCurve,
+		drawCircle : drawCircle,
 		render : render,
 	};
 
