@@ -83,6 +83,44 @@ g3.renderer = function(canvas) {
 		}
 	}
 
+	function sphere(r) {
+		var out = [];
+		for (var i = 0; i < 16; i++) {
+			var theta = Math.PI * i / 16;
+			for (var j = 0; j <= 16; j++) {
+				var phi = Math.PI * j / 8;
+				var px = r * Math.cos(theta) * Math.sin(phi);
+				var py = r * Math.sin(theta) * Math.sin(phi);
+				out.push([px, py, r * Math.cos(phi), 1]);
+			}
+		}
+		return g3.points(out);
+	}
+
+	function torus(R, r) {
+		var out = [];
+		for (var i = 0; i < 16; i++) {
+			var theta = Math.PI * i / 8;
+			for (var j = 0; j <= 16; j++) {
+				var phi = Math.PI * j / 8;
+				var px = Math.cos(theta) * (r * Math.cos(phi) + R);
+				var py = Math.sin(theta) * (r * Math.cos(phi) + R);
+				out.push([px, py, r * Math.sin(phi), 1]);
+			}
+		}
+		return g3.points(out);
+	}
+
+	function drawPoints(points, color) {
+		_drawPoints(g3.matrix.mulVectors(points.transformMatrix(), points.points), g3.api.color(color));
+	}
+
+	function _drawPoints(points, color) {
+		for (var i = 0; i < points.length; i += 4) {
+			_drawPoint(points[4 * i], points[4 * i + 1]);
+		}
+	}
+
 	function drawWireframe(wireframe, color) {
 		_drawWireFrame(g3.matrix.mulVectors(wireframe.transformMatrix(), wireframe.points), wireframe.indices, g3.api.color(color));
 	}
@@ -155,6 +193,9 @@ g3.renderer = function(canvas) {
 		drawBezierCurve : drawBezierCurve,
 		drawHermiteCurve : drawHermiteCurve,
 		drawCircle : drawCircle,
+		drawPoints : drawPoints,
+		sphere : sphere,
+		torus : torus,
 		render : render,
 	};
 
